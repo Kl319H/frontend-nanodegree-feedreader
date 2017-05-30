@@ -68,9 +68,8 @@ $(function() {
       });
     });
 
-    it('should have an entry', function(done) {
+    it('should have an entry', function() {
       expect($('.feed').children('.entry-link').length).not.toBe(0);
-      done();
     });
   });
 
@@ -87,22 +86,19 @@ $(function() {
       $('.feed').empty();
       loadFeed(0, function() {
         contentBefore = $('.feed').find("h2").first().text();
-      });
 
-      loadFeed(1, function() {
-        contentAfter = $('.feed').find("h2").first().text();
-        done();
+        loadFeed(1, function() {
+          contentAfter = $('.feed').find("h2").first().text();
+          done();
+        });
       });
 
     });
 
-    it('loads new content', function(done) {
+    it('loads new content', function() {
       console.log(contentBefore);
       console.log(contentAfter);
-
       expect(contentAfter).not.toEqual(contentBefore);
-      done();
-
     });
   });
 }());
