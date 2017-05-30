@@ -63,42 +63,41 @@ $(function() {
 
   describe('Initial Entries', function() {
     beforeEach(function(done) {
-      loadFeed(0, function() {
+      loadFeed(0, done);
+    });
+  });
+
+  it('should have an entry', function() {
+    expect($('.feed').children('.entry').length).not.toBe(0);
+  });
+});
+
+/* This is a test suite named "New Feed Selection"
+ *It ensures when a new feed is loaded
+ * by the loadFeed function that the content actually changes.
+ */
+describe('New Feed Selection', function() {
+  var contentBefore;
+  var contentAfter;
+
+
+  beforeEach(function(done) {
+    $('.feed').empty();
+    loadFeed(0, function() {
+      contentBefore = $('.feed').find("h2").first().text();
+
+      loadFeed(1, function() {
+        contentAfter = $('.feed').find("h2").first().text();
         done();
       });
     });
 
-    it('should have an entry', function() {
-      expect($('.feed').children('.entry-link').length).not.toBe(0);
-    });
   });
 
-  /* This is a test suite named "New Feed Selection"
-   *It ensures when a new feed is loaded
-   * by the loadFeed function that the content actually changes.
-   */
-  describe('New Feed Selection', function() {
-    var contentBefore;
-    var contentAfter;
-
-
-    beforeEach(function(done) {
-      $('.feed').empty();
-      loadFeed(0, function() {
-        contentBefore = $('.feed').find("h2").first().text();
-
-        loadFeed(1, function() {
-          contentAfter = $('.feed').find("h2").first().text();
-          done();
-        });
-      });
-
-    });
-
-    it('loads new content', function() {
-      console.log(contentBefore);
-      console.log(contentAfter);
-      expect(contentAfter).not.toEqual(contentBefore);
-    });
+  it('loads new content', function() {
+    console.log(contentBefore);
+    console.log(contentAfter);
+    expect(contentAfter).not.toEqual(contentBefore);
   });
+});
 }());
